@@ -577,6 +577,7 @@ html, body {
     width: 28em;
     min-width: 500px;
     margin: 100px auto;
+    padding: 25px;
        
     position: relative;
     display: block;
@@ -704,6 +705,9 @@ html, body {
 	left: 1185px;
     text-decoration: none;
     color: #555;
+    background-repeat: no-repeat;
+    padding-left: 22px;
+    font-weight: bold;
 }
 
 .basket span {
