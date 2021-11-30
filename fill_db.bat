@@ -1,2 +1,2 @@
-python manage.py fill
+python manage.py fill_db
 pause
