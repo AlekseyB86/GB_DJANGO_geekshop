@@ -7,7 +7,7 @@
     </li>
     <li>
         <a href="{% url 'products:products' %}"
-           {% if request.resolver_match.url_name == 'products' %}class="active"{% endif %}>продукты
+           {% if request.resolver_match.namespace == 'products' %}class="active"{% endif %}>продукты
         </a>
     </li>
     <li>
