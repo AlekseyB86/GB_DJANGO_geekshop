@@ -44,7 +44,6 @@ def contact(request):
 
 
 def products(request, pk=None):
-
     if pk is not None:
         if pk == 0:
             products_list = Product.objects.all()
