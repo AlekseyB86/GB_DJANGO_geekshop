@@ -30,7 +30,7 @@ def add(request, pk):
 
 @login_required
 def remove(request, pk):
-    basket_item = get_object_or_404(Product, pk=pk)
+    basket_item = get_object_or_404(Basket, pk=pk)
     basket_item.delete()
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

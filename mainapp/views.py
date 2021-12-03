@@ -80,6 +80,6 @@ def product(request, pk):
     context = {
         'product': get_object_or_404(Product, pk=pk),
         'basket': get_basket(request.user),
-        'links_menu': get_links_menu(),
+        'links_menu': get_links_menu()
     }
     return render(request, 'mainapp/product.html', context)

@@ -15,9 +15,7 @@
                        value="{{ item.quantity }}">
                 <span class="product_cost">{{ item.product_cost }}&nbspруб</span>
                 <button class="btn btn-round">
-                    <a href="{% url 'basket:remove' item.pk %}" class="">
-                        удалить
-                    </a>
+                    <a href="{% url 'basket:remove' item.pk %}" class="">удалить</a>
                 </button>
             </div>
             <hr>
@@ -25,7 +23,7 @@
 
         <div class="basket_summary">
             {% if baskets %}
-                В корзине {{ baskets.0.total_quantity }}товаров общей стоимостью
+                В корзине {{ baskets.0.total_quantity }} товаров общей стоимостью
                 {{ baskets.0.total_cost }} руб
             {% else %}
                 Корзина пуста
