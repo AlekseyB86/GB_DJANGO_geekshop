@@ -8,6 +8,7 @@
             <span class="product_price">{{ item.product.price }}&nbspруб</span>
             <input type="number" name="{{ item.pk }}"
                    min="0"
+                   max="{{ item.product.quantity }}"
                    value="{{ item.quantity }}">
             <span class="product_cost">{{ item.product_cost }}&nbspруб</span>
             <button class="btn btn-round">

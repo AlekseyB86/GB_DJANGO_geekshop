@@ -25,14 +25,14 @@
     "name": "офис-2",
     "image": "products/product-4.jpg",
     "price": 15090,
-    "quantity": 152
+    "quantity": 15
   },
   {
     "category": "модерн",
     "name": "модерн-1",
     "image": "products/product-5.jpg",
     "price": 100078,
-    "quantity": 124
+    "quantity": 12
   },
   {
     "category": "классика",
@@ -46,6 +46,6 @@
     "name": "офис-3",
     "image": "products/product-7.jpg",
     "price": 5607,
-    "quantity": 192
+    "quantity": 19
   }
 ]
