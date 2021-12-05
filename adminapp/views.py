@@ -1,9 +1,10 @@
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, get_object_or_404
-
 from authapp.models import ShopUser
 from mainapp.models import ProductCategory, Product
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def user_create(request):
     context = {
 
@@ -11,6 +12,7 @@ def user_create(request):
     return render(request, '', context)
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def users(request):
     context = {
         'title': 'админка/пользователи',
@@ -19,6 +21,7 @@ def users(request):
     return render(request, 'adminapp/users.html', context)
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def user_update(request):
     context = {
 
@@ -26,6 +29,7 @@ def user_update(request):
     return render(request, '', context)
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def user_delete(request):
     context = {
 
@@ -33,6 +37,7 @@ def user_delete(request):
     return render(request, '', context)
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def category_create(request):
     context = {
 
@@ -40,6 +45,7 @@ def category_create(request):
     return render(request, '', context)
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def categories(request):
     context = {
         'title': 'админка/категории',
@@ -48,6 +54,7 @@ def categories(request):
     return render(request, 'adminapp/categories.html', context)
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def category_update(request):
     context = {
 
@@ -55,6 +62,7 @@ def category_update(request):
     return render(request, '', context)
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def category_delete(request):
     context = {
 
@@ -62,6 +70,7 @@ def category_delete(request):
     return render(request, '', context)
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def product_create(request):
     context = {
 
@@ -69,6 +78,7 @@ def product_create(request):
     return render(request, '', context)
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def products(request, pk):
     context = {
         'title': 'админка/продукты',
@@ -78,6 +88,7 @@ def products(request, pk):
     return render(request, 'adminapp/products.html', context)
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def product_update(request):
     context = {
 
@@ -85,6 +96,7 @@ def product_update(request):
     return render(request, '', context)
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def product_delete(request):
     context = {
 
@@ -92,6 +104,7 @@ def product_delete(request):
     return render(request, '', context)
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def product_detail(request):
     context = {
 
