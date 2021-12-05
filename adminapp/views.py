@@ -1,15 +1,28 @@
 from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
+from django.urls import reverse
+
+from adminapp.forms import ShopUserAdminEditForm
+from authapp.forms import ShopUserRegisterForm
 from authapp.models import ShopUser
 from mainapp.models import ProductCategory, Product
 
 
 @user_passes_test(lambda u: u.is_superuser)
 def user_create(request):
-    context = {
+    if request.method == 'POST':
+        user_form = ShopUserRegisterForm(request.POST, request.FILES)
+        if user_form.is_valid():
+            user_form.save()
+            return HttpResponseRedirect(reverse('adminapp:user_list'))
+    else:
+        user_form = ShopUserRegisterForm()
 
+    context = {
+        'title': 'пользователи/создание',
+        'form': user_form
     }
-    return render(request, '', context)
+    return render(request, 'adminapp/user_form.html', context)
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -22,11 +35,21 @@ def users(request):
 
 
 @user_passes_test(lambda u: u.is_superuser)
-def user_update(request):
-    context = {
+def user_update(request, pk):
+    current_user = get_object_or_404(ShopUser, pk=pk)
+    if request.method == 'POST':
+        user_form = ShopUserAdminEditForm(request.POST, request.FILES, instance=current_user)
+        if user_form.is_valid():
+            user_form.save()
+            return HttpResponseRedirect(reverse('adminapp:user_list'))
+    else:
+        user_form = ShopUserAdminEditForm(instance=current_user)
 
+    context = {
+        'title': 'пользователи/редактирование',
+        'form': user_form
     }
-    return render(request, '', context)
+    return render(request, 'adminapp/user_form.html', context)
 
 
 @user_passes_test(lambda u: u.is_superuser)
