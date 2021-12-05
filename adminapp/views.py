@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
+from authapp.models import ShopUser
+from mainapp.models import ProductCategory, Product
 
 
 def user_create(request):
@@ -10,48 +12,88 @@ def user_create(request):
 
 
 def users(request):
-    return None
+    context = {
+        'title': 'админка/пользователи',
+        'object_list': ShopUser.objects.all().order_by('-is_active', '-is_superuser', '-is_staff', 'username')
+    }
+    return render(request, 'adminapp/users.html', context)
 
 
 def user_update(request):
-    return None
+    context = {
+
+    }
+    return render(request, '', context)
 
 
 def user_delete(request):
-    return None
+    context = {
+
+    }
+    return render(request, '', context)
 
 
 def category_create(request):
-    return None
+    context = {
+
+    }
+    return render(request, '', context)
 
 
 def categories(request):
-    return None
+    context = {
+        'title': 'админка/категории',
+        'object_list': ProductCategory.objects.all().order_by('-is_active')
+    }
+    return render(request, 'adminapp/categories.html', context)
 
 
 def category_update(request):
-    return None
+    context = {
+
+    }
+    return render(request, '', context)
 
 
 def category_delete(request):
-    return None
+    context = {
+
+    }
+    return render(request, '', context)
 
 
 def product_create(request):
-    return None
+    context = {
+
+    }
+    return render(request, '', context)
 
 
-def products(request):
-    return None
+def products(request, pk):
+    context = {
+        'title': 'админка/продукты',
+        'category': get_object_or_404(ProductCategory, pk=pk),
+        'object_list': Product.objects.filter(category__pk=pk).order_by('-is_active')
+    }
+    return render(request, 'adminapp/products.html', context)
 
 
 def product_update(request):
-    return None
+    context = {
+
+    }
+    return render(request, '', context)
 
 
 def product_delete(request):
-    return None
+    context = {
+
+    }
+    return render(request, '', context)
 
 
 def product_detail(request):
-    return None
+    context = {
+
+    }
+    return render(request, '', context)
