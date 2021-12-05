@@ -15,7 +15,15 @@
                         пользователь
                     {% endif %}
                     <button><a href={% url 'adminapp:user_update' object.pk %}>редактировать</a></button>
-                    <button><a href={% url 'adminapp:user_delete' object.pk %}>удалить</a></button>
+                    <button>
+                        <a href={% url 'adminapp:user_delete' object.pk %}>
+                            {% if object.is_active %}
+                                удалить
+                            {% else %}
+                                восстановить
+                            {% endif %}
+                        </a>
+                    </button>
                 </div>
                 <div class="user_name">
                     <p><strong>{{ object.username }}</strong></p>
