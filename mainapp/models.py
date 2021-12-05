@@ -29,7 +29,7 @@ class Product(models.Model):
     is_active = models.BooleanField(default=True)
 
     updated_at = models.DateTimeField(auto_now=True, **NULLABLE)
-    updated_at = models.DateTimeField(auto_now_add=True, **NULLABLE)
+    created_at = models.DateTimeField(auto_now_add=True, **NULLABLE)
 
     def __str__(self):
         return f'{self.name} ({self.category.name})'
