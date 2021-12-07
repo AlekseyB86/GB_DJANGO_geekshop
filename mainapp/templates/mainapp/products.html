@@ -1,5 +1,6 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
+{% load my_tags %}
 
 {% block menu %}
     <div class="hero-white">
@@ -18,7 +19,7 @@
         <div class="details-products">
             <div class="details-slider">
                 <div class="slider-product">
-                    <img src="/media/{{ hot_product.image }}">
+                    <img src="{{ hot_product.image|media_for_products }}" alt="HotDog">
                 </div>
                 <div class="slider-control">
                     <div class="block">
