@@ -15,6 +15,6 @@ def media_for_products(img_path):
 @register.filter(name='media_for_users')
 def media_for_users(img_path):
     if not img_path:
-        img_path = 'users_avatars/user_default.png'
+        img_path = 'users_avatars/avatar_default.jpg'
 
     return f'{settings.MEDIA_URL}{img_path}'

@@ -10,8 +10,13 @@
         {% endif %}
         <form action="{% url 'adminapp:user_delete' object.pk %}" method="post">
             {% csrf_token %}
-            <input type="submit" class="btn btn-danger" value="Да">
+            <input type="submit"
+                {% if object.is_active %}
+                   class="btn btn-danger" value="Удалить"
+                {% else %}
+                   class="btn btn-success" value="Восстановить"
+                {% endif %}>
         </form>
-        <a href="{% url 'adminapp:user_list' %}" class="btn btn-success">Нет</a>
+        <a href="{% url 'adminapp:user_list' %}" class="btn btn-default">Назад</a>
     </div>
 {% endblock %}
