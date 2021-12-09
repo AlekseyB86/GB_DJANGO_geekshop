@@ -18,7 +18,7 @@ def login(request):
             auth.login(request, user)
             if 'next' in request.POST.keys():
                 return HttpResponseRedirect(request.POST['next'])
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('mainapp:index'))
 
     context = {
         'login_form': login_form,
@@ -29,7 +29,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('mainapp:index'))
 
 
 def register(request):
@@ -38,7 +38,7 @@ def register(request):
 
         if register_form.is_valid():
             register_form.save()
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('mainapp:index'))
     else:
         register_form = ShopUserRegisterForm()
 
