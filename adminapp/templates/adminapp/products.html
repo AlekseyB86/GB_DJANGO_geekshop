@@ -31,9 +31,12 @@
                     <b>количество</b>
                     <p>{{ object.quantity }}</p>
                 </div>
-                <div class="product_desc">
-                    {{ object.short_desc|title }}
-                </div>
+                {% if object.short_desc %}
+                    <div class="product_desc">
+                        <b>краткое описание</b>
+                        <p>{{ object.short_desc|title }}</p>
+                    </div>
+                {% endif %}
             </div>
         {% endfor %}
 

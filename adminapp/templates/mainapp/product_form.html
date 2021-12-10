@@ -1,14 +1,12 @@
 {% extends 'authapp/base.html' %}
 {% load static %}
 
-{% block title %}
-    {{  }}
-{% endblock %}
+
 {% block content %}
     <form class="form-horizontal" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <input class="btn btn-primary" type="submit" value="сохранить">
     </form>
-    <a href="{% url 'adminapp:product_list' %}" class="btn btn-default">Назад</a>  {# как перейти обратно в ту же категорию? #}
+{#    <a href="{% url 'adminapp:product_list' %}" class="btn btn-default">Назад</a>  {# как перейти обратно в ту же категорию?#}
 {% endblock %}

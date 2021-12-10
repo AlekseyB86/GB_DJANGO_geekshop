@@ -2,9 +2,9 @@ from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
-from adminapp.forms import ShopUserAdminEditForm, ProductEditForm
+from adminapp.forms import ShopUserAdminEditForm, AdminProductUpdateForm, AdminProductCategoryUpdateForm
 from authapp.forms import ShopUserRegisterForm
 from authapp.models import ShopUser
 from mainapp.models import ProductCategory, Product
@@ -25,7 +25,12 @@ class PageTitleMixin:
         return context_data
 
 
-class UserCreateView(SuperUserOnlyMixin, PageTitleMixin, CreateView):
+class ShopUserListView(SuperUserOnlyMixin, PageTitleMixin, ListView):
+    model = ShopUser
+    page_title = 'пользователи'
+
+
+class ShopUserCreateView(SuperUserOnlyMixin, PageTitleMixin, CreateView):
     model = ShopUser
     template_name = 'adminapp/user_form.html'
     form_class = ShopUserRegisterForm
@@ -35,12 +40,7 @@ class UserCreateView(SuperUserOnlyMixin, PageTitleMixin, CreateView):
         return reverse('adminapp:user_list')
 
 
-class ShopUserListView(SuperUserOnlyMixin, PageTitleMixin, ListView):
-    model = ShopUser
-    page_title = 'пользователи'
-
-
-class UserUpdateView(SuperUserOnlyMixin, PageTitleMixin, UpdateView):
+class ShopUserUpdateView(SuperUserOnlyMixin, PageTitleMixin, UpdateView):
     model = ShopUser
     template_name = 'adminapp/user_form.html'
     form_class = ShopUserAdminEditForm
@@ -50,70 +50,56 @@ class UserUpdateView(SuperUserOnlyMixin, PageTitleMixin, UpdateView):
         return reverse('adminapp:user_list')
 
 
-# @user_passes_test(lambda u: u.is_superuser)
-# def user_delete(request, pk):
-#     current_user = get_object_or_404(ShopUser, pk=pk)
-#     if request.method == 'POST':
-#         current_user.is_active = not current_user.is_active
-#         current_user.save()
-#         return HttpResponseRedirect(reverse('adminapp:user_list'))
-#
-#     context = {
-#         'title': 'пользователи/удаление',
-#         'object': current_user
-#     }
-#     return render(request, 'adminapp/user_delete.html', context)
-
-
-class UserDeleteView(SuperUserOnlyMixin, PageTitleMixin, DeleteView):
+class ShopUserDeleteView(SuperUserOnlyMixin, PageTitleMixin, DeleteView):
     model = ShopUser
-    template_name = 'adminapp/user_delete.html'
     page_title = 'пользователи/удаление/восстановление'
 
     def get_success_url(self):
         return reverse('adminapp:user_list')
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def category_create(request):
-    context = {
-
-    }
-    return render(request, '', context)
+class ProductCategoryListView(SuperUserOnlyMixin, PageTitleMixin, ListView):
+    model = ProductCategory
+    page_title = 'категории'
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def categories(request):
-    context = {
-        'title': 'админка/категории',
-        'object_list': ProductCategory.objects.all().order_by('-is_active')
-    }
-    return render(request, 'adminapp/categories.html', context)
+class ProductCategoryCreateView(SuperUserOnlyMixin, PageTitleMixin, CreateView):
+    model = ProductCategory
+    success_url = reverse_lazy('adminapp:category_list')
+    form_class = AdminProductCategoryUpdateForm
+    page_title = 'категории/создание'
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def category_update(request):
-    context = {
+class ProductCategoryUpdateView(SuperUserOnlyMixin, PageTitleMixin, UpdateView):
+    model = ProductCategory
+    success_url = reverse_lazy('adminapp:category_list')
+    form_class = AdminProductCategoryUpdateForm
+    page_title = 'категории/редактирование'
 
-    }
-    return render(request, '', context)
 
+class ProductCategoryDeleteView(SuperUserOnlyMixin, PageTitleMixin, DeleteView):
+    model = ProductCategory
+    success_url = reverse_lazy('adminapp:category_list')
+    page_title = 'категории/удаление'
 
-@user_passes_test(lambda u: u.is_superuser)
-def category_delete(request):
-    context = {
+    def get_success_url(self):
+        category_item = ProductCategory.objects.get(pk=self.kwargs['pk'])
+        return reverse('adminapp:category_list')
 
-    }
-    return render(request, '', context)
+    # delete переопределяется в models.py
+    # def delete(self, request, *args, **kwargs):
+    #     self.object = self.get_object()
+    #     self.object.is_active = False
+    #     self.object.save()
+    #     return HttpResponseRedirect(self.get_success_url())
 
 
 class ProductCreateView(SuperUserOnlyMixin, PageTitleMixin, CreateView):
     model = Product
-    template_name = 'adminapp/product_form.html'
-    form_class = ProductEditForm
+    form_class = AdminProductUpdateForm
+    page_title = 'продукты/создание'
 
     def get_success_url(self):
-        # print(reverse('adminapp:product_list', args=[self.kwargs['pk']]))
         return reverse('adminapp:product_list', args=[self.kwargs['pk']])
 
 
@@ -133,8 +119,7 @@ class ProductListView(SuperUserOnlyMixin, PageTitleMixin, ListView):
 
 class ProductUpdateView(SuperUserOnlyMixin, PageTitleMixin, UpdateView):
     model = Product
-    template_name = 'adminapp/product_form.html'
-    form_class = ProductEditForm
+    form_class = AdminProductUpdateForm
 
     def get_success_url(self):
         product_item = Product.objects.get(pk=self.kwargs['pk'])
@@ -149,7 +134,7 @@ class ProductDeleteView(SuperUserOnlyMixin, PageTitleMixin, DeleteView):
         product_item = Product.objects.get(pk=self.kwargs['pk'])
         return reverse('adminapp:product_list', args=[product_item.category_id])
 
-    # delete переопределяется либо здесь либо в models.py
+    # delete переопределяется в models.py
     # def delete(self, request, *args, **kwargs):
     #     self.object.is_active = not self.object.is_active
     #     self.object.save()
@@ -157,6 +142,7 @@ class ProductDeleteView(SuperUserOnlyMixin, PageTitleMixin, DeleteView):
     #     return HttpResponseRedirect(reverse('adminapp:product_list', args=[self.object.category_id]))
 
 
-class ProductDetailView(SuperUserOnlyMixin, PageTitleMixin, DeleteView):
+class ProductDetailView(SuperUserOnlyMixin, PageTitleMixin, DetailView):
     model = Product
-    template_name = 'adminapp/product_detail.html'
+    page_title = 'продукты/подробнее'
+
