@@ -58,7 +58,7 @@ def products(request, pk=None, page=1):
 
         # Пагинация
         # page = request.GET.get('p', 1)  # если page не передаётся в функции
-        paginator = Paginator(products_list, 3)
+        paginator = Paginator(products_list, 6)
         try:
             product_paginator = paginator.page(page)
         except PageNotAnInteger:

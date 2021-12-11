@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import user_passes_test
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
@@ -104,6 +105,7 @@ class ProductCreateView(SuperUserOnlyMixin, PageTitleMixin, CreateView):
 
 
 class ProductListView(SuperUserOnlyMixin, PageTitleMixin, ListView):
+    paginate_by = 5
     model = Product
     template_name = 'adminapp/products.html'
     page_title = 'продукты'
@@ -145,4 +147,3 @@ class ProductDeleteView(SuperUserOnlyMixin, PageTitleMixin, DeleteView):
 class ProductDetailView(SuperUserOnlyMixin, PageTitleMixin, DetailView):
     model = Product
     page_title = 'продукты/подробнее'
-
