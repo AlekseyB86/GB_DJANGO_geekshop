@@ -3,7 +3,7 @@
 
 {% block head %}Редактирование профиля{% endblock %}
 {% block content %}
-    <p style="text-align: center"><img src="/media/{{ user.avatar }}" alt="аватарка"></p>
+    <p style="text-align: center"><img src="/media/{{ user.avatar }}" width="200px" alt="аватарка"></p>
     <form class="form-horizontal" action="{% url 'auth:edit' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ edit_form.as_p }}
