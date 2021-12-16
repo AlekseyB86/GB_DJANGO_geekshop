@@ -1,5 +1,6 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
+{% load my_tags %}
 
 {% block menu %}
     <div class="hero-white">
@@ -14,11 +15,10 @@
         <div class="links clearfix">
             {% include 'mainapp/includes/inc_categories_menu.html' %}
         </div>
-
         <div class="details-products">
             <div class="details-slider">
                 <div class="slider-product">
-                    <img src="/media/{{ hot_product.image }}">
+                    <img src="{{ hot_product.image|media_for_products }}" alt="HotDog">
                 </div>
                 <div class="slider-control">
                     <div class="block">
@@ -52,18 +52,17 @@
                 </div>
             </div>
         </div>
-
         <div class="related">
             <div class="title clearfix">
                 <h2>Похожие продукты</h2>
-                <a class="explore" href="#">показать все <img src="/static/img/arrow.png" alt=""></a>
+                <a class="explore" href="#">показать все <img src="{% static 'img/arrow.png' %}" alt=""></a>
             </div>
             <div class="related-products clearfix">
                 {% for product in same_products %}
                     <div class="block">
-                        <a href="{% url 'mainapp:product' product.pk %}"><img src="/media/{{ product.image }}" alt="">
+                        <a href="{% url 'mainapp:product' product.pk %}"><img src="{{ product.image|media_for_products }}" alt="">
                             <div class="text">
-                                <img src="/static/img/icon-hover.png" alt="img">
+                                <img src="{% static 'img/icon-hover.png' %}" alt="img">
                                 <h4>{{ product.name }}</h4>
                                 <p>{{ product.category.name }}</p>
                             </div>
@@ -72,6 +71,5 @@
                 {% endfor %}
             </div>
         </div>
-
     </div>
 {% endblock %}

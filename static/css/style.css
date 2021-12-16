@@ -97,7 +97,7 @@ html, body {
 }
 
 .products_list {
-    margin-left: 250px;
+    margin-left: 98px;
 }
 
 .products_list .new_product {
@@ -520,6 +520,9 @@ html, body {
 
 .category-products {
     margin-bottom: 75px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: unset;
 }
 
 .category-products .block a img {
@@ -1430,6 +1433,7 @@ td:first-child {
 
 .location {
     padding: 0px 97px;
+    display: flex;
 }
 
 .location-1 {

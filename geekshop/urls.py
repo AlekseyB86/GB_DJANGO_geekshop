@@ -17,13 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 from django.conf import settings
-import mainapp.views as mainapp
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', mainapp.index, name='index'),
-    path('contact/', mainapp.contact, name='contact'),
-    path('products/', include('mainapp.urls', namespace='products')),
+    path('', include('mainapp.urls', namespace='main')),
     path('basket/', include('basketapp.urls', namespace='basket')),
     path('auth/', include('authapp.urls', namespace='auth')),
     path('admin/', include('adminapp.urls', namespace='adminapp')),

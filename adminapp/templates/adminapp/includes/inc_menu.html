@@ -1,6 +1,6 @@
 <ul class="menu">
     <li>
-        <a href="{% url 'index' %}">на сайт</a>
+        <a href="{% url 'main:index' %}">на сайт</a>
     </li>
     <li>
         <a href="{% url 'adminapp:user_list' %}"
@@ -11,8 +11,8 @@
     <li>
         <a href="{% url 'adminapp:category_list' %}"
            class="{% if 'category' in request.resolver_match.url_name or category.name %}active{% endif %}">
-            категории
-            {% if category %}:<span>{{ category.name }}</span>{% endif %}
+            {% if 'product' in request.resolver_match.url_name %}категория{% else %}категории{% endif %}
+            {% if category %}: <span>{{ category.name }}</span>{% endif %}
         </a>
     </li>
 </ul>
