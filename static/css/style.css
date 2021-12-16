@@ -96,7 +96,7 @@ html, body {
 }
 
 .products_list {
-    margin-left: 140px;
+    margin-left: 250px;
 }
 
 .products_list .new_product {
@@ -389,6 +389,7 @@ html, body {
     position: relative;
     display: block;
     float: left;
+    margin-left: 2em;
 }
 
 .basket_list span.category_name {
@@ -421,6 +422,7 @@ html, body {
     position: relative;
     display: block;
     float: left;
+    font-weight: 600;
 }
 
 .basket_list .basket_record {
@@ -474,6 +476,7 @@ html, body {
     margin-left: 50px;
     margin-bottom: 15px;
     color: #555;
+    text-align: center;
 }
 
 
@@ -696,18 +699,19 @@ html, body {
 }
 .basket {
 	display: block;
-	width: 23px;
-	height: 23px;	
+	width: 100px;
+	height: 31px;
 	background-image: url(/static/img/basket.png);
 	position: absolute;
-	top: 63px;
+	top: 60px;
 	/*left: 1210px;*/
 	left: 1185px;
     text-decoration: none;
     color: #555;
+    padding-left: 27px;
     background-repeat: no-repeat;
-    padding-left: 22px;
-    font-weight: bold;
+    background-position-y: center;
+    font-size: 12px;
 }
 
 .basket span {
