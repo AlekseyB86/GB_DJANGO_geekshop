@@ -145,12 +145,6 @@ LOGIN_URL = '/auth/login/'
 
 DOMAIN = 'http://localhost:8000'
 
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 25
-EMAIL_HOST_USER = 'django@gd.local'
-EMAIL_HOST_PASSWORD = 'geekshop'
-EMAIL_USE_SSL = False
-
 # Для яндекса
 # EMAIL_HOST = 'stmp.yandex.net'
 # EMAIL_PORT = 465
@@ -158,8 +152,16 @@ EMAIL_USE_SSL = False
 # EMAIL_HOST_PASSWORD = 'my_password'
 # EMAIL_USE_SSL = True
 
-EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'django@gd.local'
+EMAIL_HOST_PASSWORD = 'geekshop'
+EMAIL_USE_SSL = False
 
-# запуск smtp сервера:
+# EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
+
+# запуск smtp сервера для приема писем:
 # python -m smtpd -n -c DebuggingServer localhost:25
 
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = 'tmp/mails/'

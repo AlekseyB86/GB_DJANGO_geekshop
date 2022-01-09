@@ -72,14 +72,11 @@ def edit(request):
 
 def verify(request, email, activation_key):
     user = ShopUser.objects.filter(email=email).first()
-    if (
-        user
-        and user.activation_key == activation_key
-        and not user.is_activation_key_expired()
-    ):
-        user.is_active = True
-        user.save()
-        auth.login(request, user)
+    if user:
+        if user.activation_key == activation_key and not user.is_activation_key_expired():
+            user.is_active = True
+            user.save()
+            auth.login(request, user)
         return render(request, 'authapp/verify.html')
     return HttpResponseRedirect(reverse('main:index'))
 
