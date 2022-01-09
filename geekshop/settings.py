@@ -142,3 +142,22 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/auth/login/'
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'django@gd.local'
+EMAIL_HOST_PASSWORD = 'geekshop'
+EMAIL_USE_SSL = False
+
+# Для яндекса
+# EMAIL_HOST = 'stmp.yandex.net'
+# EMAIL_PORT = 465
+# EMAIL_HOST_USER = 'my_login@yandex.ru'
+# EMAIL_HOST_PASSWORD = 'my_password'
+# EMAIL_USE_SSL = True
+
+EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
+
+# запуск smtp сервера:
+# python -m smtpd -n -c DebuggingServer localhost:25
+
