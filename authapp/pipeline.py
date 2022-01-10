@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 import requests
 from django.conf import settings
@@ -19,7 +19,7 @@ def save_user_profile(backend, user, response, *args, **kwargs):
     #                       None,
     #                       urlencode(OrderedDict(fields=','.join(('bdate', 'sex', 'about')),
     #                                             access_token=response['access_token'],
-    #                                             v='5.131')),
+    #                                             v='5.92')),
     #                       None
     #                       ))
 
@@ -28,7 +28,7 @@ def save_user_profile(backend, user, response, *args, **kwargs):
     # params = {
     #     "fields": ",".join(fields_list),
     #     "access_token": response["access_token"],
-    #     "v": "5.131"
+    #     "v": "5.92"
     # }
     # requests.get(api_url, params=params)
 

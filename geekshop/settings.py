@@ -81,8 +81,6 @@ TEMPLATES = [
     },
 ]
 
-LOGIN_URL = '/'
-
 WSGI_APPLICATION = 'geekshop.wsgi.application'
 
 AUTH_USER_MODEL = 'authapp.ShopUser'
@@ -153,8 +151,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/auth/login/'
-# LOGIN_ERROR_URL = '/'
-# LOGIN_REDIRECT_URL = '/'
+LOGIN_ERROR_URL = '/'
+LOGIN_REDIRECT_URL = '/'
 
 DOMAIN_NAME = 'http://localhost:8000'
 
