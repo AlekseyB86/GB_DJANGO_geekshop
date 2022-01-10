@@ -8,5 +8,5 @@
         {{ form.as_p }}
         <input class="btn btn-primary" type="submit" value="сохранить">
     </form>
-    <a href="{% url 'adminapp:product_list' category.pk %}" class="btn btn-default">Назад</a>
+    <a href="{% url 'adminapp:category_list' %}" class="btn btn-default">Назад</a>
 {% endblock %}

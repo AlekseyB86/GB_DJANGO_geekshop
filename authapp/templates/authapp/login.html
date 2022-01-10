@@ -13,4 +13,6 @@
     </form>
     <hr>
     <a href="{% url 'auth:register' %}">Регистрация</a>
+    <br>
+    <a href="{% url 'social:begin' 'vk-oauth2' %}?next=/">вход через ВК</a>
 {% endblock %}

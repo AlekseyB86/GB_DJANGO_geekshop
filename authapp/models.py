@@ -7,9 +7,10 @@ from django.contrib.auth.models import AbstractUser
 
 NULLABLE = {'null': True, 'blank': True}
 
+
 class ShopUser(AbstractUser):
     avatar = models.ImageField(upload_to='users_avatars', blank=True, verbose_name='Аватар')
-    age = models.PositiveSmallIntegerField(verbose_name='Возраст')
+    age = models.PositiveSmallIntegerField(verbose_name='Возраст', default=18)
 
     activation_key = models.CharField(max_length=128, blank=True)
     activation_key_created = models.DateTimeField(auto_now_add=True, **NULLABLE)
