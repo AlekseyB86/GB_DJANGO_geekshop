@@ -44,6 +44,8 @@ class Order(models.Model):
 
     def delete(self, **kwargs):
         self.is_active = False
+        if not self.is_active:
+            self.status = 'CNC'
         self.save()
 
 
