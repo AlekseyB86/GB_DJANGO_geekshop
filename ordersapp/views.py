@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 
@@ -37,11 +38,12 @@ class OrderItemCreate(CreateView):
         context = self.get_context_data()
         orderitems = context['orderitems']
 
-        form.instance.user = self.request.user
-        self.object = form.save()
-        if orderitems.is_valid():
-            orderitems.instance = self.object
-            orderitems.save()
+        with transaction.atomic():
+            form.instance.user = self.request.user
+            self.object = form.save()
+            if orderitems.is_valid():
+                orderitems.instance = self.object
+                orderitems.save()
 
         return super().form_valid(form)
 
