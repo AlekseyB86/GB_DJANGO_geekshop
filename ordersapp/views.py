@@ -1,11 +1,10 @@
 from django.db import transaction
 from django.forms import inlineformset_factory
-from django.shortcuts import render
 
-# Create your views here.
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
+from basketapp.models import Basket
 from ordersapp.forms import OrderItemForm
 from ordersapp.models import Order, OrderItem
 
@@ -29,8 +28,15 @@ class OrderItemCreate(CreateView):
         if self.request.method == 'POST':
             formset = OrderFormset(self.request.POST)
         else:
+            basket_items = Basket.objects.filter(user=self.request.user)
+            if basket_items.exists():
+                OrderFormset = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=basket_items.count())
             formset = OrderFormset()
-
+            for num, form in enumerate(formset.forms):
+                form.initial['product'] = basket_items[num].product
+                form.initial['quantity'] = basket_items[num].quantity
+            else:
+                formset = OrderFormset()
         data['orderitems'] = formset
         return data
 
