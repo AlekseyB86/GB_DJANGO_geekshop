@@ -91,4 +91,5 @@ class OrderItemDetail(DetailView):
 
 
 class OrderItemDelete(DeleteView):
-    pass
+    model = Order
+    success_url = reverse_lazy('ordersapp:order_list')
