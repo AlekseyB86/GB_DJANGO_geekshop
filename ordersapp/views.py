@@ -87,7 +87,7 @@ class OrderItemUpdate(UpdateView):
 
 
 class OrderItemDetail(DetailView):
-    pass
+    model = Order
 
 
 class OrderItemDelete(DeleteView):
