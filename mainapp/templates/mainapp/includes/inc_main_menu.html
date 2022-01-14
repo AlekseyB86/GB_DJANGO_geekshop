@@ -17,6 +17,7 @@
             <img src="{% static 'img/crown_gold.png' %}" alt="АДМИН" class="admin_gold">
             <li><a href="{% url 'adminapp:user_list' %}">Админка</a></li>
         {% endif %}
+        <li><a href="{% url 'ordersapp:order_list' %}">Заказы</a></li>
         <li><a href="{% url 'auth:logout' %}">выйти</a></li>
     {% else %}
         <li><a href="{% url 'auth:register' %}">регистрация</a></li>
