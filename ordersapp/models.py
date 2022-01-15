@@ -43,6 +43,10 @@ class Order(models.Model):
         return sum(list(map(lambda x: x.get_product_cost, items)))
 
     def delete(self, **kwargs):
+        for item in self.orderitems.select_related():
+            item.product.quantity += item.quantity
+            item.product.save()
+
         self.is_active = False
         if not self.is_active:
             self.status = 'CNC'

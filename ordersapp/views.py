@@ -1,4 +1,6 @@
 from django.db import transaction
+from django.db.models.signals import pre_save, pre_delete
+from django.dispatch import receiver
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -24,7 +26,7 @@ class OrderItemCreate(CreateView):
     success_url = reverse_lazy('ordersapp:order_list')
 
     def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
+        data = super(OrderItemCreate).get_context_data(**kwargs)
         OrderFormset = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=1)
 
         if self.request.method == 'POST':
@@ -79,11 +81,14 @@ class OrderItemUpdate(UpdateView):
         orderitems = context['orderitems']
 
         with transaction.atomic():
-            form.instance.user = self.request.user
             self.object = form.save()
             if orderitems.is_valid():
                 orderitems.instance = self.object
                 orderitems.save()
+
+        # удаляем пустой заказ
+        if self.object.get_total_cost() == 0:
+            self.object.delete()
 
         return super().form_valid(form)
 
@@ -103,3 +108,21 @@ def order_forming_complete(request, pk):
     order_item.save()
 
     return HttpResponseRedirect(reverse('ordersapp:order_list'))
+
+
+# сигнал на добавление заказа
+@receiver(pre_save, sender=OrderItem)
+@receiver(pre_save, sender=Basket)
+def product_quantity_update_on_save(sender, update_fields, instance, **kwargs):
+    if instance.pk:
+        instance.product.quantity -= instance.quantity - sender.objects.get(pk=instance.pk).quantity
+    else:
+        instance.product.quantity -= instance.quantity
+    instance.product.save()
+
+# сигнал на удаление заказа
+@receiver(pre_delete, sender=OrderItem)
+@receiver(pre_delete, sender=Basket)
+def product_quantity_update_on_delete(sender, instance, **kwargs):
+    instance.product.quantity += instance.quantity
+    instance.product.save()
